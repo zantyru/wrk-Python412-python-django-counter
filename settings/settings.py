@@ -30,6 +30,7 @@ INSTALLED_APPS = [
 
     # Сторонние приложения
     'rest_framework',
+    'rest_framework.authtoken',
     'django_bootstrap5',
 
     # Свои приложения
@@ -66,6 +67,15 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'settings.wsgi.application'
+
+
+# Django Rest Framework settings
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.TokenAuthentication',
+    ]
+}
 
 
 # Database
