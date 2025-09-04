@@ -29,11 +29,13 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     # Сторонние приложения
+    'rest_framework',
     'django_bootstrap5',
 
     # Свои приложения
     'app_accounts',
     'app_counter',
+    'api',
 ]
 
 MIDDLEWARE = [
