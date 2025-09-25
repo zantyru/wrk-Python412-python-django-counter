@@ -1,8 +1,14 @@
 {% extends "_base.html" %}
 
+{% load static %}
+
 {% load django_bootstrap5 %}
 
 {% block title %}Вход{% endblock %}
+
+{% block head %}
+  <script src="{% static 'app_accounts/js/login.js' %}"></script>
+{% endblock %}
 
 {% block body %}
     <h1>Вход</h1>
