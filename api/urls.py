@@ -11,4 +11,5 @@ urlpatterns = [
     path("api/counters/", views.CounterListView.as_view(), name="counter_list"),
     path("api/counters/<pk>/", views.CounterDetailView.as_view(), name="counter_detail"),
     path("api/counters/<pk>/increase/", views.CounterIncreaseView.as_view(), name="counter_increase"),
+    path("api/counters/<pk>/decrease/", views.CounterDecreaseView.as_view(), name="counter_decrease"),
 ]

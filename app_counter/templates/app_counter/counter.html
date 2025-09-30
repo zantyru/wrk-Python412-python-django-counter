@@ -8,13 +8,13 @@
 
 {% block body %}
   {% if counter %}
-    <p>Состояние счётчика: <b>{{ counter.value }}</b></p>
+    <p>Состояние счётчика: <b id="counter{{ counter.id }}">{{ counter.value }}</b></p>
     <p>
       {# <a href="{% url 'app_counter:decrease_counter' %}">Минус 1</a> #}
       {# <a href="{% url 'app_counter:increase_counter' %}">Плюс 1</a> #}
 
-      <button>Минус 1</button>
-      <button onclick="increaseCounter(`{% url 'api:counter_increase' counter.id %}`, '...')">Плюс 1</button>
+      <button onclick="updateCounterValue(`{% url 'api:counter_decrease' counter.id %}`, document.cookie['access_token'])">Минус 1</button>
+      <button onclick="updateCounterValue(`{% url 'api:counter_increase' counter.id %}`, document.cookie['access_token'])">Плюс 1</button>
     </p>
     <p>
       <a href="{% url 'app_counter:index' %}">На главную</a>

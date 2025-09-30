@@ -26,11 +26,14 @@ function getToken()
 
             if (!token) return;
 
-            document.cookie = `access_token=${token}`;
+            document.cookie = `access_token=${token}; path=/; samesite=lax`;
         }
     )
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-    document.forms[0].addEventListener("submit", getToken);
+    document.forms[0].addEventListener("submit", (event) => {
+        //event.preventDefault();
+        getToken();
+    });
 });

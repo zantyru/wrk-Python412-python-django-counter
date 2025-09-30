@@ -1,3 +1,14 @@
+function getCookie(name)
+{
+    let matches = document.cookie.match(
+        new RegExp(
+            "(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
+        )
+    );
+
+    return matches ? decodeURIComponent(matches[1]) : undefined;
+}
+
 function fetchCounterAPI(apiURL, token, payload=null, method="post")
 {
     return fetch(
@@ -16,10 +27,18 @@ function fetchCounterAPI(apiURL, token, payload=null, method="post")
     )
 }
 
-function increaseCounter(apiURL, token)
+function updateCounterValue(apiURL)
 {
+    let token = getCookie("access_token");
+
     fetchCounterAPI(apiURL, token).then(
-        data => alert(JSON.stringify(data))
+        data => {
+            // alert(JSON.stringify(data));
+            let counterId = data["counter"]["id"];
+            let counterValue = data["counter"]["value"];
+            let outputElement = document.querySelector(`#counter${counterId}`);
+            outputElement.innerText = counterValue;
+        }
     ).catch(
         error => console.log('increaseCounter [Error]:', error)
     );

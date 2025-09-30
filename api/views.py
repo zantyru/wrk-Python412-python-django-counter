@@ -31,7 +31,7 @@ class CounterDetailView(generics.RetrieveAPIView):
 
 class CounterIncreaseView(APIView):
 
-    def get(self, request, pk, format=None):  # А вообще нужен post
+    def post(self, request, pk, format=None):
 
         counter = get_object_or_404(Counter, pk=pk)
         counter.value += 1
@@ -41,5 +41,23 @@ class CounterIncreaseView(APIView):
             {
                 "action": "increase",
                 "isComplete": True,
+                "counter": CounterSerializer(counter).data,
+            }
+        )
+
+
+class CounterDecreaseView(APIView):
+
+    def post(self, request, pk, format=None):
+
+        counter = get_object_or_404(Counter, pk=pk)
+        counter.value -= 1
+        counter.save()
+
+        return Response(
+            {
+                "action": "decrease",
+                "isComplete": True,
+                "counter": CounterSerializer(counter).data,
             }
         )
