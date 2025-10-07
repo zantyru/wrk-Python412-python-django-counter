@@ -19,17 +19,28 @@ class HelloAPIView(APIView):
         return Response(content)
 
 
-class CounterListView(generics.ListAPIView):
-    queryset = Counter.objects.all()
-    serializer_class = CounterSerializer
+class CounterListView(APIView):  # было в скобках generics.ListAPIView
+
+    def get(self, request, login=None):
+
+        if login:
+            counter = get_object_or_404(Counter, user__username=login)
+            data = CounterSerializer(counter).data
+        else:
+            all_counters = Counter.objects.all()
+            data = CounterSerializer(all_counters, many=True).data
+
+        return Response(data)
 
 
 class CounterDetailView(generics.RetrieveAPIView):
+    permission_classes = (IsAuthenticated,)
     queryset = Counter.objects.all()
     serializer_class = CounterSerializer
 
 
 class CounterIncreaseView(APIView):
+    permission_classes = (IsAuthenticated,)
 
     def post(self, request, pk, format=None):
 
@@ -47,6 +58,7 @@ class CounterIncreaseView(APIView):
 
 
 class CounterDecreaseView(APIView):
+    permission_classes = (IsAuthenticated,)
 
     def post(self, request, pk, format=None):
 
